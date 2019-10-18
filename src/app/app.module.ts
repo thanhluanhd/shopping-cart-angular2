@@ -1,15 +1,17 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from "@angular/core";
 
-import { registerLocaleData } from '@angular/common';
-import localeVi from '@angular/common/locales/vi';
+import { FormsModule } from "@angular/forms";
 
-registerLocaleData(localeVi, 'vi');
+import { registerLocaleData } from "@angular/common";
+import localeVi from "@angular/common/locales/vi";
 
-import { AppComponent } from './app.component';
-import { CartHeaderComponent } from './cart-header/cart-header.component';
-import { CartContentComponent } from './cart-content/cart-content.component';
-import { CartFooterComponent } from './cart-footer/cart-footer.component';
+registerLocaleData(localeVi, "vi");
+
+import { AppComponent } from "./app.component";
+import { CartHeaderComponent } from "./cart-header/cart-header.component";
+import { CartContentComponent } from "./cart-content/cart-content.component";
+import { CartFooterComponent } from "./cart-footer/cart-footer.component";
 
 @NgModule({
   declarations: [
@@ -18,10 +20,8 @@ import { CartFooterComponent } from './cart-footer/cart-footer.component';
     CartContentComponent,
     CartFooterComponent
   ],
-  imports: [
-    BrowserModule
-  ],
+  imports: [BrowserModule, FormsModule],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

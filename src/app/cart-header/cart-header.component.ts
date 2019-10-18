@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-cart-header',
   templateUrl: './cart-header.component.html',
   styleUrls: ['./cart-header.component.css']
 })
-export class CartHeaderComponent implements OnInit {
+export class CartHeaderComponent{
 
-  numberItems : number = 8;
+  @Input() numberItems : number;
   constructor() { }
 
   ngOnInit() {
