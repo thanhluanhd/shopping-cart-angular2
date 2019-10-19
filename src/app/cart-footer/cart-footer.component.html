@@ -8,6 +8,7 @@
         <ul>
           <li>Subtotal <span>${{subtotal}}</span></li>
           <li>Tax <span>${{Tax}}</span></li>
+          <li *ngIf="Discount>0">Discount <span>${{Discount}}</span></li>
           <li class="total"> <span>${{Total}}</span></li>
         </ul>
       </div>

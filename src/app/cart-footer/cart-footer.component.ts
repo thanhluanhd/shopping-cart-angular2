@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input,Output,EventEmitter } from '@angular/core';
 import { Product } from "../product.model";
 
 @Component({
@@ -10,11 +10,13 @@ import { Product } from "../product.model";
 
 export class CartFooterComponent implements OnInit {
 
+  promoCode:string;
   @Input() subtotal : number;
   @Input() Tax : number;
   @Input() Total : number;
+  @Input() Discount : number;
 
-  @Input() promoCode : string;
+  @Output() onApplyPromocode = new EventEmitter();
   
   constructor() { }
 
@@ -22,7 +24,7 @@ export class CartFooterComponent implements OnInit {
   }
 
   applyPromoCode(){
-    console.log(this.promoCode);
+    this.onApplyPromocode.emit(this.promoCode);
   }
 
 }

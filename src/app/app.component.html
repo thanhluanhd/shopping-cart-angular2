@@ -1,13 +1,27 @@
 <main>
   <header class="container">
-   <app-cart-header [numberItems]="4"></app-cart-header>
+    <app-cart-header [numberItems]="totalNumber"></app-cart-header>
   </header>
 
   <section class="container">
-    <app-cart-content [products]= "products"></app-cart-content>
+    <app-cart-content
+      [products]="products"
+      (onInputQuantity)="handleChangeQuantity($event)"
+      (onRemoveProduct)="handleRemoveProduct($event)"
+    ></app-cart-content>
   </section>
 
   <section class="container">
-    <app-cart-footer [subtotal] = "subtotal" [Tax] ="Tax" [Total] = "Total" [promoCode] ="promoCode"></app-cart-footer>
+    <app-cart-footer
+      *ngIf="products.length > 0"
+      [subtotal]="subtotal"
+      [Tax]="Tax"
+      [Total]="Total"
+      [Discount]="distCount"
+      (onApplyPromocode)="handlePromocode($event)"
+    ></app-cart-footer>
+    <div *ngIf="products.length ===0">
+      <h1>Hien khong co san pham nao trong gio</h1>
+    </div>
   </section>
 </main>

@@ -1,5 +1,8 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { Product } from "./product.model";
+
+import { ProductService } from "./product.service";
+import { TaxService } from "./tax.service";
 
 @Component({
   selector: "app-root",
@@ -8,46 +11,63 @@ import { Product } from "./product.model";
 })
 export class AppComponent {
   title = "shopingcart";
+  products: Product[];
+  totalNumber: number = 0;
 
-  products: Product[] = [
-    {
-      id: 1,
-      name: "Iphone 5",
-      description: "Iphone 5",
-      image:
-        "https://drop.ndtv.com/TECH/product_database/images/910201410301AM_635_apple_iphone_6.jpeg?downsize=*:180&output-quality=80",
-      price: 1000,
-      quantity: 1
-    },
-    {
-      id: 2,
-      name: "Iphone 6",
-      description: "Iphone 6",
-      image:
-        "https://drop.ndtv.com/TECH/product_database/images/910201410301AM_635_apple_iphone_6.jpeg?downsize=*:180&output-quality=80",
-      price: 2000,
-      quantity: 2
-    }
-  ];
+  promoCode: string = "";
+  distCount: number = 0;
+  subtotal: number = 1000000000;
+  Tax: number = 10000000;
+  Total: number = 110000000;
+  numberItems: number = 1;
 
-  removeProduct(id: number) {
-    const index = this.products.findIndex(product => product.id === id);
-    let desc = this.products.find(product => product.id === id).description;
+  constructor(
+    public productServie: ProductService,
+    public taxServie: TaxService
+  ) {
+    this.products = productServie.getProducts();
+  }
 
-    if (index !== -1) {
-      this.products.splice(index, 1);
-    }
-    alert("Da xoa " + desc);
+  ngDoCheck() {
+    this.tinhSoLuong();
+    this.tinhTong();
+  }
+
+  tinhSoLuong() {
+    let numberItems = 0;
+    this.products.forEach(product => {
+      numberItems += product.quantity;
+    });
+    this.totalNumber = numberItems;
+  }
+
+  handleChangeQuantity(p: Product) {
+    this.productServie.handleChangeQuantity(p);
+  }
+
+  handleRemoveProduct(p: Product) {
+    this.productServie.removeProduct(p.id);
   }
 
   inputQuantity(id: number, inputElement: HTMLInputElement) {
     console.log(id, inputElement, inputElement.value);
   }
 
-  subtotal : number = 21.97;
-  Tax : number = 2;
-  Total : number = 26.97;
+  tinhTong() {
+    let price = 0;
 
-  promoCode : string = ''
-  
+    this.products.forEach(product => {
+      price += product.price * product.quantity;
+    });
+
+    this.subtotal = price;
+    this.Tax = (price * 10) / 100;
+    this.Total = price + this.Tax;
+    this.Total = this.Total - this.distCount;
+  }
+
+  handlePromocode(promocode: string) {
+    this.distCount = this.taxServie.getDistCountPromoCode(this.promoCode);
+    console.log(this.distCount);
+  }
 }
