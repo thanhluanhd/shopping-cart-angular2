@@ -12,6 +12,7 @@ import { AppComponent } from "./app.component";
 import { CartHeaderComponent } from "./cart-header/cart-header.component";
 import { CartContentComponent } from "./cart-content/cart-content.component";
 import { CartFooterComponent } from "./cart-footer/cart-footer.component";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,7 @@ import { CartFooterComponent } from "./cart-footer/cart-footer.component";
     CartContentComponent,
     CartFooterComponent
   ],
-  imports: [BrowserModule, FormsModule],
+  imports: [BrowserModule, FormsModule, BrowserAnimationsModule],
   providers: [],
   bootstrap: [AppComponent]
 })
